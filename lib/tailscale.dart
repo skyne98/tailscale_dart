@@ -452,7 +452,9 @@ class Tailscale implements TailscaleClient {
   ///   [device approval](https://tailscale.com/kb/1099/device-approval)).
   ///
   /// Transitions delivered via [onStateChange]:
-  /// - First launch: `noState → starting → running`
+  /// - First launch without an auth key: `noState → starting → needsLogin`;
+  ///   open [TailscaleStatus.authUrl] to authenticate, then it becomes running.
+  /// - First launch with an auth key: `noState → starting → running`
   /// - Reconnect with persisted creds: `stopped → starting → running`
   /// - If creds are expired: `stopped → starting → needsLogin` (with
   ///   [TailscaleStatus.authUrl] populated)
@@ -463,9 +465,8 @@ class Tailscale implements TailscaleClient {
   /// after the native runtime starts. Increase it for slow mobile networks or
   /// self-hosted control planes.
   ///
-  /// Throws [TailscaleUpException] if no [authKey] is provided and no
-  /// persisted session state exists, or if the node fails to reach a
-  /// stable state before [timeout] (e.g. control plane unreachable).
+  /// Throws [TailscaleUpException] if the node fails to reach a stable state
+  /// before [timeout] (for example, when the control plane is unreachable).
   @override
   Future<TailscaleStatus> up({
     String hostname = '',

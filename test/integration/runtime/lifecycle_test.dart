@@ -365,25 +365,6 @@ void main() {
     });
   });
 
-  group('up() without auth key', () {
-    test('throws TailscaleUpException when no persisted state', () async {
-      final ownedStateDir = Directory(
-        p.join(configuredStateBaseDir.path, 'tailscale'),
-      );
-      if (ownedStateDir.existsSync()) {
-        ownedStateDir.deleteSync(recursive: true);
-      }
-
-      await expectLater(
-        Tailscale.instance.up(
-          hostname: 'no-auth-test',
-          controlUrl: Uri.parse('http://127.0.0.1:1/'),
-        ),
-        throwsA(isA<TailscaleUpException>()),
-      );
-    });
-  });
-
   group('up/down lifecycle', () {
     test('up() starts the node and delivers state events', () async {
       final firstEvent = Tailscale.instance.onStateChange.first;
