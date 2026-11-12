@@ -1078,7 +1078,7 @@ final class ReactorTestHarness {
     required int fd,
     required SendPort eventPort,
     required SendPort replyPort,
-    int maxReadChunkSize = 256 * 1024,
+    int maxReadChunkSize = 1024 * 1024,
     int maxInboundQueuedBytes = 1024 * 1024,
   }) {
     _commands.add(<Object>[

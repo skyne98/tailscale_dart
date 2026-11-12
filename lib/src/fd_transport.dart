@@ -31,7 +31,7 @@ final class PosixFdTransport {
   /// Adopts [fd] and registers it with the shared POSIX fd reactor.
   static Future<PosixFdTransport> adopt(
     int fd, {
-    int maxReadChunkSize = 256 * 1024,
+    int maxReadChunkSize = 1024 * 1024,
     int maxInboundQueuedBytes = 1024 * 1024,
     int maxPendingWriteBytes = 1024 * 1024,
   }) async {
@@ -466,7 +466,7 @@ const int _reactorReadBudgetBytes = 1024 * 1024;
 
 /// Per-write-syscall byte cap. Intentionally decoupled from
 /// `maxReadChunkSize`: tuning read chunking should not change write batching.
-const int _reactorWriteChunkBytes = 256 * 1024;
+const int _reactorWriteChunkBytes = 1024 * 1024;
 
 /// Per-iteration write drain budget. Same role as the read budget but for
 /// outbound flushes.

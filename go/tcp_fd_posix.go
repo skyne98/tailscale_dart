@@ -245,7 +245,7 @@ func endpointFromAddr(addr net.Addr) (string, int) {
 // reactor round-trip — capping single-stream throughput. A larger buffer lets a
 // chunk land in one syscall and keeps a few chunks in flight. The kernel clamps
 // to its own max (kern.ipc.maxsockbuf / net.core.wmem_max), so this is a hint.
-const socketPairBufferBytes = 256 * 1024
+const socketPairBufferBytes = 1024 * 1024
 
 // tuneSocketPairBuffers best-effort enlarges the send/receive buffers on both
 // ends of a bridge socketpair. Errors are ignored: the platform may clamp the

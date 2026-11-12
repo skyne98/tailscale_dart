@@ -19,7 +19,7 @@ const keepAlivePeriod = 30 * time.Second
 // fast path, so io.CopyBuffer genuinely uses these.
 var pipeBufferPool = sync.Pool{
 	New: func() any {
-		b := make([]byte, 64*1024)
+		b := make([]byte, 1024*1024)
 		return &b
 	},
 }
