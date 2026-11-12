@@ -24,7 +24,7 @@ final class RuntimeConnection {
   /// Adopts a POSIX fd as a runtime connection.
   static Future<RuntimeConnection> adoptPosixFd(
     int fd, {
-    int maxReadChunkSize = 64 * 1024,
+    int maxReadChunkSize = 256 * 1024,
     int maxPendingWriteBytes = 1024 * 1024,
   }) async {
     final transport = await PosixFdTransport.adopt(
